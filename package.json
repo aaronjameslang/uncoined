@@ -1,0 +1,17 @@
+{
+  "name": "uncoined",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pretet": "standard --fix",
+    "test": "ava src/**/*.spec.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "standard": "^10.0.3",
+    "uuid-validate": "0.0.2"
+  }
+}
