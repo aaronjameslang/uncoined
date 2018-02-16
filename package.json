@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pretet": "standard --fix",
-    "test": "ava src/**/*.spec.js"
+    "pretest": "standard --fix",
+    "test": "ava **/*.spec.js"
   },
   "author": "",
   "license": "ISC",
