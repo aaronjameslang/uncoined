@@ -1,6 +1,10 @@
 import test from 'ava'
-import uv from 'uuid-validate'
 
-test('foo', t => {
-  t.truthy(uv('95ecc380-afe9-41e4-9b6c-751b66dd541e', 4))
+import * as sut from './index'
+
+test('coinable, short string', t => {
+  const planchet = 'c8404eda-83cb-4728-bf68-21bd1bac26b8'
+  const die = 'jane+doe'
+  const actual = sut.coinable(die, planchet)
+  t.true(actual)
 })
