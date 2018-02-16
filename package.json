@@ -16,5 +16,9 @@
   },
   "ava": {
     "files": "**/*.spec.js"
+  },
+  "dependencies": {
+    "ramda": "^0.25.0",
+    "uuid-validate": "0.0.2"
   }
 }
