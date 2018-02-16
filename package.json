@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "pretest": "standard --fix",
-    "test": "ava **/*.spec.js"
+    "test": "ava",
+    "watch": "ava --watch"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "ava": "^0.25.0",
     "standard": "^10.0.3"
+  },
+  "ava": {
+    "files": "**/*.spec.js"
   }
 }
