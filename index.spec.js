@@ -48,13 +48,13 @@ test('coinAll', t => {
     // 'yEBO2oPjane+dCG9G6wmuA==',
     // 'yEBO2oPLjane+dG9G6wmuA==',
     'yEBO2oPLRjane+d9G6wmuA==',
-    //'yEBO2oPLRyjane+dG6wmuA==',
+    // 'yEBO2oPLRyjane+dG6wmuA==',
     'yEBO2oPLRyijane+d6wmuA==',
     'yEBO2oPLRyi/jane+dwmuA==',
     'yEBO2oPLRyi/ajane+dmuA==',
     'yEBO2oPLRyi/aCjane+duA==',
     'yEBO2oPLRyi/aCGjane+dA==',
-    'yEBO2oPLRyi/aCG9jane+d==',
+    'yEBO2oPLRyi/aCG9jane+d=='
   ]
   t.deepEqual(actual, expected)
 })
