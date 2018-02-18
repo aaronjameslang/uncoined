@@ -58,3 +58,44 @@ test('coinAll', t => {
   ]
   t.deepEqual(actual, expected)
 })
+
+test('coinAll, case flipping', t => {
+  const planchet = 'c8404eda-83cb-4728-bf68-21bd1bac26b8'
+  // yEBO2oPLRyi/aCG9G6wmuA==
+  const die = 'jane+r'
+  const actual = sut.coinAll(die, planchet)
+  const expected = [
+    'jane+rPLRyi/aCG9G6wmuA==',
+    'yjane+rLRyi/aCG9G6wmuA==',
+    'yEjane+rRyi/aCG9G6wmuA==',
+    'yEBjane+Ryi/aCG9G6wmuA==', // case flip r -> R
+    // 'yEBOjane+ri/aCG9G6wmuA==',
+    // 'yEBO2jane+r/aCG9G6wmuA==',
+    // 'yEBO2ojane+raCG9G6wmuA==',
+    // 'yEBO2oPjane+rCG9G6wmuA==',
+    // 'yEBO2oPLjane+rG9G6wmuA==',
+    'yEBO2oPLRjane+r9G6wmuA==',
+    // 'yEBO2oPLRyjane+rG6wmuA==',
+    'yEBO2oPLRyijane+r6wmuA==',
+    'yEBO2oPLRyi/jane+rwmuA==',
+    'yEBO2oPLRyi/ajane+rmuA==',
+    'yEBO2oPLRyi/aCjane+ruA==',
+    'yEBO2oPLRyi/aCGjane+rA==',
+    'yEBO2oPLRyi/aCG9jane+r=='
+  ]
+  t.deepEqual(actual, expected)
+})
+
+test('flipCharAt 8 abcdefghijkl', t => {
+  const initial = 'abcdefghijkl'
+  const expected = 'abcdefghIjkl'
+  const actual = sut.flipCharAt(initial, 8)
+  t.is(actual, expected)
+})
+
+test('flipCharAt 8 ABCDEFGHIJKL', t => {
+  const initial = 'ABCDEFGHIJKL'
+  const expected = 'ABCDEFGHiJKL'
+  const actual = sut.flipCharAt(initial, 8)
+  t.is(actual, expected)
+})
