@@ -24,3 +24,7 @@ const testSnap = snap => {
 for (const snap in snaps) {
   testSnap(snaps[snap])
 }
+
+if (process.env.snapme) {
+  testSnap({rfc: process.env.snapme})
+}
