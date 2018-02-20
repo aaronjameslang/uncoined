@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pretest": "standard --fix",
+    "pretest": "standard --fix || true",
     "test": "ava",
+    "posttest": "standard",
     "watch": "ava --watch"
   },
   "author": "",
