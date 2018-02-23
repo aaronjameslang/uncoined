@@ -61,9 +61,16 @@ function readMacAddress (uuid) {
 function decode (uuid /* buffer */) {
   // TODO type check uuid
   const decoded = {
-    variant: readVariant(uuid),
-    version: readVersion(uuid)
+    variant: readVariant(uuid)
   }
+  if (decoded.variant !== 1 &&
+      decoded.variant !== 2
+  ) {
+    return decoded
+  }
+
+  decoded.version = readVersion(uuid)
+
   if (decoded.version === 1) {
     decoded.dateTime = readDateTime(uuid)
     decoded.clockSequnce = readClockSequence(uuid)

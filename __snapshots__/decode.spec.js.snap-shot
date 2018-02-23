@@ -9,8 +9,7 @@ exports['a29da4f5c65b1fa9ccd57b768ba589039c59f357b3067b05f6df9684a3bb74ae 1'] = 
 exports['a29da4f5c65b1fa9ccd57b768ba589039c59f357b3067b05f6df9684a3bb74ae 2'] = {
   "rfc": "00000000-0000-0000-0000-000000000000",
   "decoded": {
-    "variant": 0,
-    "version": 0
+    "variant": 0
   }
 }
 
