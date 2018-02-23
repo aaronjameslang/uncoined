@@ -20,6 +20,7 @@ exports['a29da4f5c65b1fa9ccd57b768ba589039c59f357b3067b05f6df9684a3bb74ae 3'] = 
     "variant": 1,
     "version": 1,
     "dateTime": "2018-02-19T23:27:23.908431200Z",
+    "clockSequnce": 13890,
     "macAddress": "ed:5f:89:f7:18"
   }
 }
@@ -30,6 +31,7 @@ exports['a29da4f5c65b1fa9ccd57b768ba589039c59f357b3067b05f6df9684a3bb74ae 4'] = 
     "variant": 1,
     "version": 1,
     "dateTime": "2018-02-19T23:27:23.908588200Z",
+    "clockSequnce": 13890,
     "macAddress": "ed:5f:89:f7:18"
   }
 }
@@ -40,6 +42,7 @@ exports['a29da4f5c65b1fa9ccd57b768ba589039c59f357b3067b05f6df9684a3bb74ae 5'] = 
     "variant": 1,
     "version": 1,
     "dateTime": "2018-02-19T23:27:23.908629200Z",
+    "clockSequnce": 13890,
     "macAddress": "ed:5f:89:f7:18"
   }
 }

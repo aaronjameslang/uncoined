@@ -14,12 +14,8 @@ function readTimeHighAndVersion (uuid) {
   return uuid.readUInt16BE(6)
 }
 
-function readClockSequenceHighAndReserved (uuid) {
-  return uuid.readUInt8(8)
-}
-
-function readClockSequenceLow (uuid) {
-  return uuid.readUInt8(9)
+function readClockSequenceAndReserved (uuid) {
+  return uuid.readUInt16BE(8)
 }
 
 function readNode (uuid) {
@@ -29,15 +25,15 @@ function readNode (uuid) {
 // S 4.1.1
 function readVariant (uuid) {
   const octit = uuid.readUInt8(8) >> 5
-  return [0, 0, 0, 0, 1, 1, 3, 4][octit]
+  return [0, 0, 0, 0, 1, 1, 2, 3][octit]
 }
 
-// S 4.1.2
+// S 4.1.3
 function readVersion (uuid) {
   return uuid.readUInt8(6) >> 4
 }
 
-// S 4.1.3
+// S 4.1.4
 function readDateTime (uuid) {
   const unixTime = libtime.toUnixTime(
     readTimeHighAndVersion(uuid) & 0x0FFF,
@@ -48,6 +44,13 @@ function readDateTime (uuid) {
     libtime.toNanoSeconds(readTimeLow(uuid))
   const date = new Date(unixTime * 1000)
   return date.toISOString().slice(0, -4) + nanoSeconds + 'Z'
+}
+
+// S 4.1.5
+function readClockSequence (uuid) {
+  const variant = readVariant(uuid)
+  const mask = [0x7fff, 0x3fff, 0x1ff, 0x1ff][variant]
+  return readClockSequenceAndReserved(uuid) & mask
 }
 
 // S 4.1.6
@@ -63,6 +66,7 @@ function decode (uuid /* buffer */) {
   }
   if (decoded.version === 1) {
     decoded.dateTime = readDateTime(uuid)
+    decoded.clockSequnce = readClockSequence(uuid)
     decoded.macAddress = readMacAddress(uuid)
   }
   return decoded
