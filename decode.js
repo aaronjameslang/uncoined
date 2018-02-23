@@ -10,11 +10,11 @@ function readTimeMid (uuid) {
   return uuid.readUInt16BE(4)
 }
 
-function readTimeHiAndVersion (uuid) {
+function readTimeHighAndVersion (uuid) {
   return uuid.readUInt16BE(6)
 }
 
-function readClockSeqHiAndReserved (uuid) {
+function readClockSeqHighAndReserved (uuid) {
   return uuid.readUInt8(8)
 }
 
@@ -40,7 +40,7 @@ function readVersion (uuid) {
 // S 4.1.3
 function readDateTime (uuid) {
   const unixTime = libtime.toUnixTime(
-    readTimeHiAndVersion(uuid) & 0x0FFF,
+    readTimeHighAndVersion(uuid) & 0x0FFF,
     readTimeMid(uuid),
     readTimeLow(uuid)
   )
