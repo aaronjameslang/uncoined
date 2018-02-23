@@ -14,11 +14,11 @@ function readTimeHighAndVersion (uuid) {
   return uuid.readUInt16BE(6)
 }
 
-function readClockSeqHighAndReserved (uuid) {
+function readClockSequenceHighAndReserved (uuid) {
   return uuid.readUInt8(8)
 }
 
-function readClockSeqLow (uuid) {
+function readClockSequenceLow (uuid) {
   return uuid.readUInt8(9)
 }
 
