@@ -7,6 +7,7 @@
     "pretest": "standard --fix || true",
     "test": "ava",
     "posttest": "standard",
+    "snap-up": "UPDATE=1 ava",
     "watch": "ava --watch"
   },
   "author": "",

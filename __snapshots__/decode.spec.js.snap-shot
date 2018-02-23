@@ -18,7 +18,9 @@ exports['a29da4f5c65b1fa9ccd57b768ba589039c59f357b3067b05f6df9684a3bb74ae 3'] = 
   "rfc": "70008d18-15cc-11e8-b642-0ed5f89f718b",
   "decoded": {
     "variant": 1,
-    "version": 1
+    "version": 1,
+    "dateTime": "2018-02-19T23:27:23.908431200Z",
+    "macAddress": "ed:5f:89:f7:18"
   }
 }
 
@@ -26,7 +28,9 @@ exports['a29da4f5c65b1fa9ccd57b768ba589039c59f357b3067b05f6df9684a3bb74ae 4'] = 
   "rfc": "7000933a-15cc-11e8-b642-0ed5f89f718b",
   "decoded": {
     "variant": 1,
-    "version": 1
+    "version": 1,
+    "dateTime": "2018-02-19T23:27:23.908588200Z",
+    "macAddress": "ed:5f:89:f7:18"
   }
 }
 
@@ -34,7 +38,9 @@ exports['a29da4f5c65b1fa9ccd57b768ba589039c59f357b3067b05f6df9684a3bb74ae 5'] = 
   "rfc": "700094d4-15cc-11e8-b642-0ed5f89f718b",
   "decoded": {
     "variant": 1,
-    "version": 1
+    "version": 1,
+    "dateTime": "2018-02-19T23:27:23.908629200Z",
+    "macAddress": "ed:5f:89:f7:18"
   }
 }
 
