@@ -77,10 +77,23 @@ function readMacAddress (uuid) {
   return readNode(uuid).toString(16).match(/.{2}/g).join(':')
 }
 
+/**
+ * [§ 4.1.7 Nil UUID]{@link https://tools.ietf.org/html/rfc4122#section-4.1.7}
+ * @see readNode
+ */
+function isNil (uuid) {
+  return Buffer.alloc(16).equals(uuid)
+}
+
 // These need to be factored out
 
 function decode (uuid /* buffer */) {
   // TODO type check uuid
+
+  if (isNil(uuid)) {
+    return { isNil: true }
+  }
+
   const decoded = {
     variant: readVariant(uuid)
   }
