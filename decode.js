@@ -97,8 +97,8 @@ function decode (uuid /* buffer */) {
   const decoded = {
     variant: readVariant(uuid)
   }
-  if (decoded.variant !== 1 &&
-      decoded.variant !== 2
+  if (decoded.variant === 0 ||
+      decoded.variant === 3
   ) {
     return decoded
   }
@@ -109,7 +109,25 @@ function decode (uuid /* buffer */) {
     decoded.timestamp = readTimestamp(uuid)
     decoded.clockSequnce = readClockSequence(uuid)
     decoded.macAddress = readMacAddress(uuid)
+    return decoded
   }
+
+  if (decoded.version === 2) {
+    return decoded
+  }
+
+  if (decoded.version === 3) {
+    return decoded
+  }
+
+  if (decoded.version === 4) {
+    return decoded
+  }
+
+  if (decoded.version === 5) {
+    return decoded
+  }
+
   return decoded
 }
 
