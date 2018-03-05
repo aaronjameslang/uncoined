@@ -6,7 +6,7 @@
   "scripts": {
     "jsdoc": "rm -rf docs && jsdoc src --recurse --destination docs --configure jsdoc.json",
     "test": "ava",
-    "posttest": "standard",
+    "posttest": "standard && npm run jsdoc",
     "snap-up": "UPDATE=1 ava",
     "watch": "ava --watch"
   },
