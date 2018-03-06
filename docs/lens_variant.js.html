@@ -51,25 +51,32 @@ function getVariant (uuid) {
  * @returns {string} uuid
  * @example
  * setVariant(0, '20c52f0b-8e8f-4ed1-c5d4-bc34595a6ef0')
- *         // => '20c52f0b-8e8f-4ed1-05d4-bc34595a6ef0'
+ *         // => '20c52f0b-8e8f-4ed1-45d4-bc34595a6ef0'
  * @example
  * setVariant(1, '20c52f0b-8e8f-4ed1-c5d4-bc34595a6ef0')
  *         // => '20c52f0b-8e8f-4ed1-85d4-bc34595a6ef0'
  * @example
  * setVariant(2, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
- *         // => '9d6316aa-2106-11e8-c467-0ed5f89f718b'
+ *         // => '9d6316aa-2106-11e8-d467-0ed5f89f718b'
  * @example
  * setVariant(2, '9d6316aa-2106-11e8-a467-0ed5f89f718b')
  *         // => '9d6316aa-2106-11e8-c467-0ed5f89f718b'
  * @example
  * setVariant(3, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
- *         // => '9d6316aa-2106-11e8-e467-0ed5f89f718b'
+ *         // => '9d6316aa-2106-11e8-f467-0ed5f89f718b'
  * @static
  */
 function setVariant (variant, uuid) {
-  const octDigit = [0, 4, 6, 7][variant]
-  const hexDigit = (octDigit &lt;&lt; 1).toString(16)
-  const uuid_ = uuid.substr(0, 19) + hexDigit + uuid.substr(20)
+  const hexDigit = uuid.charAt(19)
+  let nybble = Number.parseInt(hexDigit, 16)
+  switch (variant) {
+    case 0: nybble = nybble &amp; 0b0111; break
+    case 1: nybble = nybble &amp; 0b0011 | 0b1000; break
+    case 2: nybble = nybble &amp; 0b0001 | 0b1100; break
+    case 3: nybble = nybble &amp; 0b0001 | 0b1110; break
+  }
+  const hexDigit_ = nybble.toString(16)
+  const uuid_ = uuid.substr(0, 19) + hexDigit_ + uuid.substr(20)
   return uuid_
 }
 
