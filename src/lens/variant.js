@@ -22,11 +22,20 @@ function getVariant (uuid) {
  * @param {string} uuid
  * @returns {string} uuid
  * @example
+ * setVariant(0, '20c52f0b-8e8f-4ed1-c5d4-bc34595a6ef0')
+ *         // => '20c52f0b-8e8f-4ed1-05d4-bc34595a6ef0'
+ * @example
  * setVariant(1, '20c52f0b-8e8f-4ed1-c5d4-bc34595a6ef0')
  *         // => '20c52f0b-8e8f-4ed1-85d4-bc34595a6ef0'
  * @example
  * setVariant(2, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
  *         // => '9d6316aa-2106-11e8-c467-0ed5f89f718b'
+ * @example
+ * setVariant(2, '9d6316aa-2106-11e8-a467-0ed5f89f718b')
+ *         // => '9d6316aa-2106-11e8-c467-0ed5f89f718b'
+ * @example
+ * setVariant(3, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
+ *         // => '9d6316aa-2106-11e8-e467-0ed5f89f718b'
  * @static
  */
 function setVariant (variant, uuid) {
