@@ -26,14 +26,16 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const NIL_UUID = '00000000-0000-0000-0000-000000000000'
+            <pre class="prettyprint source linenums"><code>/** @module */
+
+const NIL_UUID = '00000000-0000-0000-0000-000000000000'
 
 /**
  * Determine if `uuid` is "Nil" according to [RFC 4122 § 4.1.7]{@link https://tools.ietf.org/html/rfc4122#section-4.1.7}
- * @params {string} uuid
+ * @param {string} uuid
  * @returns {boolean}
  */
-function isNil (uuid) {
+exports.isNil = function isNil (uuid) {
   return uuid === NIL_UUID
 }
 
@@ -54,7 +56,6 @@ function readVersion (uuid) {
   return Number.parseInt(hexDigit, 16)
 }
 
-exports.isNil = isNil
 exports.readVariant = readVariant
 exports.readVersion = readVersion
 </code></pre>
@@ -67,7 +68,7 @@ exports.readVersion = readVersion
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#isNil">isNil</a></li><li><a href="global.html#readVariant">readVariant</a></li><li><a href="global.html#readVersion">readVersion</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-lens_version.html">lens/version</a></li><li><a href="module-version.html">version</a></li></ul>
 </nav>
 
 <br class="clear">
