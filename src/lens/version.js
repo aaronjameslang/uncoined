@@ -8,6 +8,7 @@
  * @returns {number} Integer 0-16 incl.
  * @example getVersion('9d6316aa-2106-11e8-b467-0ed5f89f718b') // => 1
  * @example getVersion('8e8f2f0b-20c5-4ed1-85d4-bc34595a6ef0') // => 4
+ * @example getVersion('8e8f2f0b-20c5-ded1-85d4-bc34595a6ef0') // => 13
  * @static
  */
 function getVersion (uuid) {

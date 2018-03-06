@@ -26,38 +26,47 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** @module */
-
-const NIL_UUID = '00000000-0000-0000-0000-000000000000'
+            <pre class="prettyprint source linenums"><code>/**
+ * [RFC 4122 § 4.1.3 Version]{@link https://tools.ietf.org/html/rfc4122#section-4.1.3}
+ * @module
+ */
 
 /**
- * Determine if `uuid` is "Nil" according to [RFC 4122 § 4.1.7]{@link https://tools.ietf.org/html/rfc4122#section-4.1.7}
  * @param {string} uuid
- * @returns {boolean}
+ * @returns {number} Integer 0-16 incl.
+ * @example getVersion('9d6316aa-2106-11e8-b467-0ed5f89f718b') // => 1
+ * @example getVersion('8e8f2f0b-20c5-4ed1-85d4-bc34595a6ef0') // => 4
+ * @example getVersion('8e8f2f0b-20c5-ded1-85d4-bc34595a6ef0') // => 13
+ * @static
  */
-exports.isNil = function isNil (uuid) {
-  return uuid === NIL_UUID
-}
-
-/**
- * [§ 4.1.1 Variant]{@link https://tools.ietf.org/html/rfc4122#section-4.1.1}
- */
-function readVariant (uuid) {
-  const hexDigit = uuid.charAt(19)
-  const octDigit = Number.parseInt(hexDigit, 16) >> 1
-  return [0, 0, 0, 0, 1, 1, 2, 3][octDigit]
-}
-
-/**
- * [§ 4.1.3 Version]{@link https://tools.ietf.org/html/rfc4122#section-4.1.3}
- */
-function readVersion (uuid) {
+function getVersion (uuid) {
   const hexDigit = uuid.charAt(14)
-  return Number.parseInt(hexDigit, 16)
+  const version = Number.parseInt(hexDigit, 16)
+  return version
 }
 
-exports.readVariant = readVariant
-exports.readVersion = readVersion
+/**
+ * @param {number} version Integer 0-16 incl.
+ * @param {string} uuid
+ * @returns {string} uuid
+ * @example
+ * setVersion(1, '8e8f2f0b-20c5-4ed1-85d4-bc34595a6ef0')
+ *         // => '8e8f2f0b-20c5-1ed1-85d4-bc34595a6ef0'
+ * @example
+ * setVersion(4, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
+ *         // => '9d6316aa-2106-41e8-b467-0ed5f89f718b'
+ * @static
+ */
+function setVersion (version, uuid) {
+  const hexDigit = version.toString(16)
+  const uuid_ = uuid.substr(0, 14) + hexDigit + uuid.substr(15)
+  return uuid_
+}
+
+exports = {
+  getVersion,
+  setVersion
+}
 </code></pre>
         </article>
     </section>
@@ -68,7 +77,7 @@ exports.readVersion = readVersion
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-lens_nil.html">lens/nil</a></li><li><a href="module-lens_variant.html">lens/variant</a></li><li><a href="module-lens_version.html">lens/version</a></li><li><a href="module-version.html">version</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-lens_nil.html">lens/nil</a></li><li><a href="module-lens_variant.html">lens/variant</a></li><li><a href="module-lens_version.html">lens/version</a></li></ul>
 </nav>
 
 <br class="clear">
