@@ -35,7 +35,7 @@ function setVersion (version, uuid) {
   return uuid_
 }
 
-exports = {
+module.exports = {
   getVersion,
   setVersion
 }

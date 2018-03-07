@@ -26,7 +26,7 @@ function setNode (node, uuid) {
   return uuid.substr(0, 24) + node
 }
 
-exports = {
+module.exports = {
   getNode,
   setNode
 }

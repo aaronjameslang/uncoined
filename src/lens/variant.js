@@ -52,7 +52,7 @@ function setVariant (variant, uuid) {
   return uuid_
 }
 
-exports = {
+module.exports = {
   getVariant,
   setVariant
 }
