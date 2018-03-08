@@ -55,22 +55,31 @@ function getNanoseconds (uuid) {
  * @example
  * setNanoseconds(0, '00000000-0000-1000-b467-0ed5f89f718b')
  *             // => '00000000-0000-1000-b467-0ed5f89f718b'
+ * @example
  * setNanoseconds(1, '00000000-0000-1000-b467-0ed5f89f718b')
  *             // => '00000000-0000-1000-b467-0ed5f89f718b'
+ * @example
  * setNanoseconds(99, '00000000-0000-1000-b467-0ed5f89f718b')
  *              // => '00000000-0000-1000-b467-0ed5f89f718b'
+ * @example
  * setNanoseconds(100, '00000000-0000-1000-b467-0ed5f89f718b')
  *               // => '00000001-0000-1000-b467-0ed5f89f718b'
+ * @example
  * setNanoseconds(1000, '00000000-0000-1000-b467-0ed5f89f718b')
  *                // => '0000000a-0000-1000-b467-0ed5f89f718b'
+ * @example
  * setNanoseconds(999999900, '00000000-0000-1000-b467-0ed5f89f718b')
  *                     // => '0098967f-0000-1000-b467-0ed5f89f718b'
+ * @example
  * setNanoseconds(999999999, '00000000-0000-1000-b467-0ed5f89f718b')
  *                     // => '0098967f-0000-1000-b467-0ed5f89f718b'
+ * @example
  * setNanoseconds(883729000, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
  *                     // => '9d6316aa-2106-11e8-b467-0ed5f89f718b'
+ * @example
  * setNanoseconds(0, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
  *             // => '9cdc3e00-2106-11e8-b467-0ed5f89f718b'
+ * @example
  * setNanoseconds(1300, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
  *                // => '9cdc3e0d-2106-11e8-b467-0ed5f89f718b'
  * @static
