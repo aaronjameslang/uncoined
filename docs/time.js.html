@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: time.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: time.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * [RFC 4122 § 4.1.4 Timestamp]{@link https://tools.ietf.org/html/rfc4122#section-4.1.4}
+ * @module
+ */
+
+const bigInt = require('big-integer') // TODO remove this dependancy
+const { getTicks, setTicks } = require('./ticks')
+
+const NANOSECONDS_PER_TICK = 100
+const TICKS_PER_SECOND = Math.pow(10, 7)
+
+/**
+ * @param {string} uuid
+ * @returns {number} Unsigned integer &lt; 10^9
+ * @example getNanoseconds('00000000-0000-1000-b467-0ed5f89f718b') // => 0
+ * @example getNanoseconds('00000001-0000-1000-b467-0ed5f89f718b') // => 100
+ * @example
+ * getNanoseconds('0000000a-0000-1000-b467-0ed5f89f718b') // => 1000
+ * @example
+ * getNanoseconds('0000270f-0000-1000-b467-0ed5f89f718b') // => 999900
+ * @example
+ * getNanoseconds('00002710-0000-1000-b467-0ed5f89f718b') // => 1000000
+ * @example
+ * getNanoseconds('0098967f-0000-1000-b467-0ed5f89f718b') // => 999999900
+ * @example
+ * getNanoseconds('00989680-0000-1000-b467-0ed5f89f718b') // => 0
+ * @example
+ * getNanoseconds('00989681-0000-1000-b467-0ed5f89f718b') // => 100
+ * @example &lt;caption>10 seconds&lt;/caption>
+ * getNanoseconds('05f5e100-0000-1000-b467-0ed5f89f718b') // => 0
+ * @example
+ * getNanoseconds('9d6316aa-2106-11e8-b467-0ed5f89f718b') // => 883729000
+ * @static
+ */
+function getNanoseconds (uuid) {
+  const timeHexStr = getTicks(uuid)
+  const ticksBigInt = bigInt(timeHexStr, 16)
+  const nanoseconds = ticksBigInt
+    .mod(TICKS_PER_SECOND)
+    .times(NANOSECONDS_PER_TICK)
+    .toJSNumber()
+  return nanoseconds
+}
+
+/*
+ * Ideas for non-bigInt getNanos
+ * a = 0x100000 % 1000
+ * 576
+ * b = 0x10000000 % 1000
+ * 456
+ * c = a
+ * 576
+ * c = (c * 16) % 1000
+ * 216
+ * c = (c * 16) % 1000
+ * 456 // b
+ */
+
+/**
+ * @param {string} uuid
+ * @returns {number} Unsigned integer &lt; 2^60 * 10^-7, i.e. 2^53 * 5^-7
+ * @example &lt;caption> Zero &lt;/caption>
+ * getSeconds('00000000-0000-1000-b467-0ed5f89f718b') // => 0
+ * @example &lt;caption> 1 tick &lt;/caption>
+ * getSeconds('00000001-0000-1000-b467-0ed5f89f718b') // => 0
+ * @example &lt;caption> 0.9999999 seconds &lt;/caption>
+ * getSeconds('0098967f-0000-1000-b467-0ed5f89f718b') // => 0
+ * @example &lt;caption> 1 second &lt;/caption>
+ * getSeconds('00989680-0000-1000-b467-0ed5f89f718b') // => 1
+ * @example &lt;caption> 1.0000001 seconds&lt;/caption>
+ * getSeconds('00989681-0000-1000-b467-0ed5f89f718b') // => 1
+ * @example &lt;caption> 2 seconds &lt;/caption>
+ * getSeconds('01312d00-0000-1000-b467-0ed5f89f718b') // => 2
+ * @example &lt;caption> 10 seconds &lt;/caption>
+ * getSeconds('05f5e100-0000-1000-b467-0ed5f89f718b') // => 10
+ * @example &lt;caption> 10^32 ticks &lt;/caption>
+ * getSeconds('00000000-0001-1000-b467-0ed5f89f718b') // => 429
+ * @example &lt;caption> 10^48 ticks &lt;/caption>
+ * getSeconds('00000000-0000-1001-b467-0ed5f89f718b') // => 28147497
+ * @example
+ * getSeconds('9d6316aa-2106-11e8-b467-0ed5f89f718b') // => 13739610092
+ * @example &lt;caption> Max ticks &lt;/caption>
+ * getSeconds('ffffffff-ffff-1ffff-b467-0ed5f89f718b') // => 115292150460
+ * @static
+ */
+function getSeconds (uuid) {
+  const hex = uuid.substr(14 + 1, 4 - 1) + uuid.substr(9, 4) + uuid.substr(0, 8)
+  const bint = bigInt(hex, 16)
+  const seconds = bint.divide(Math.pow(10, 7)).toJSNumber()
+  return seconds
+}
+
+function getTime (uuid) {
+  return [getSeconds(uuid), getNanoseconds(uuid)]
+}
+
+function setTime (time, uuid) {
+  const ticksBigInt = bigInt(time[0]).times(TICKS_PER_SECOND)
+    .plus(Math.floor(time[1] / NANOSECONDS_PER_TICK))
+  const ticksHexStr = ticksBigInt.toString(16)
+  return setTicks(ticksHexStr, uuid)
+}
+
+/**
+ * @param {number} Unsigned integer &lt; 10^9
+ * @param {string} uuid
+ * @returns {string} uuid
+ * @example
+ * setNanoseconds(0, '00000000-0000-1000-b467-0ed5f89f718b')
+ *             // => '00000000-0000-1000-b467-0ed5f89f718b'
+ * @example
+ * setNanoseconds(1, '00000000-0000-1000-b467-0ed5f89f718b')
+ *             // => '00000000-0000-1000-b467-0ed5f89f718b'
+ * @example
+ * setNanoseconds(99, '00000000-0000-1000-b467-0ed5f89f718b')
+ *              // => '00000000-0000-1000-b467-0ed5f89f718b'
+ * @example
+ * setNanoseconds(100, '00000000-0000-1000-b467-0ed5f89f718b')
+ *               // => '00000001-0000-1000-b467-0ed5f89f718b'
+ * @example
+ * setNanoseconds(1000, '00000000-0000-1000-b467-0ed5f89f718b')
+ *                // => '0000000a-0000-1000-b467-0ed5f89f718b'
+ * @example
+ * setNanoseconds(999999900, '00000000-0000-1000-b467-0ed5f89f718b')
+ *                     // => '0098967f-0000-1000-b467-0ed5f89f718b'
+ * @example
+ * setNanoseconds(999999999, '00000000-0000-1000-b467-0ed5f89f718b')
+ *                     // => '0098967f-0000-1000-b467-0ed5f89f718b'
+ * @example
+ * setNanoseconds(883729000, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
+ *                     // => '9d6316aa-2106-11e8-b467-0ed5f89f718b'
+ * @example
+ * setNanoseconds(0, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
+ *             // => '9cdc3e00-2106-11e8-b467-0ed5f89f718b'
+ * @example
+ * setNanoseconds(1300, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
+ *                // => '9cdc3e0d-2106-11e8-b467-0ed5f89f718b'
+ * @static
+ */
+function setNanoseconds (nanoseconds, uuid) {
+  return setTime([getSeconds(uuid), nanoseconds], uuid)
+}
+
+// /**
+//  * @param {number} Unsigned integer &lt; 10^9
+//  * @param {string} uuid
+//  * @returns {string} uuid
+//  * @example
+//  * setSeconds(0, '00000000-0000-1000-b467-0ed5f89f718b')
+//  *             // => '00000000-0000-1000-b467-0ed5f89f718b'
+//  * @example
+//  * setSeconds(1, '00000000-0000-1000-b467-0ed5f89f718b')
+//  *             // => '00000000-0000-1000-b467-0ed5f89f718b'
+//  * @example
+//  * setSeconds(99, '00000000-0000-1000-b467-0ed5f89f718b')
+//  *              // => '00000000-0000-1000-b467-0ed5f89f718b'
+//  * @example
+//  * setSeconds(100, '00000000-0000-1000-b467-0ed5f89f718b')
+//  *               // => '00000001-0000-1000-b467-0ed5f89f718b'
+//  * @example
+//  * setSeconds(1000, '00000000-0000-1000-b467-0ed5f89f718b')
+//  *                // => '0000000a-0000-1000-b467-0ed5f89f718b'
+//  * @example
+//  * setSeconds(999999900, '00000000-0000-1000-b467-0ed5f89f718b')
+//  *                     // => '0098967f-0000-1000-b467-0ed5f89f718b'
+//  * @example
+//  * setSeconds(999999999, '00000000-0000-1000-b467-0ed5f89f718b')
+//  *                     // => '0098967f-0000-1000-b467-0ed5f89f718b'
+//  * @example
+//  * setSeconds(883729000, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
+//  *                     // => '9d6316aa-2106-11e8-b467-0ed5f89f718b'
+//  * @example
+//  * setSeconds(0, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
+//  *             // => '9cdc3e00-2106-11e8-b467-0ed5f89f718b'
+//  * @example
+//  * setSeconds(1300, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
+//  *                // => '9cdc3e0d-2106-11e8-b467-0ed5f89f718b'
+//  * @static
+//  */
+// function setSeconds (seconds, uuid) {
+//   const hex = uuid.substr(14 + 1, 4 - 1) + uuid.substr(9, 4) + uuid.substr(0, 8)
+//   const bint = bigInt(hex, 16).times(100)
+//   const bint_ = bint.divide(Math.pow(10, 9)).times(Math.pow(10, 9))
+//   const bint__ = bint_.plus(seconds)
+//   const hex_ = bint__.divide(100).toString(16).padStart(15, '0')
+//   const uuid_ = hex_.substr(7, 8) + '-' + hex_.substr(3, 4) + '-' + uuid.charAt(14) + hex_.substr(0, 3) + uuid.substr(18)
+//   return uuid_
+// }
+
+module.exports = {
+  getNanoseconds,
+  getSeconds,
+  getTime,
+  setNanoseconds,
+  // setSeconds,
+  setTime
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-lens_clockSequence.html">lens/clockSequence</a></li><li><a href="module-lens_nil.html">lens/nil</a></li><li><a href="module-lens_node.html">lens/node</a></li><li><a href="module-lens_ticks.html">lens/ticks</a></li><li><a href="module-lens_time.html">lens/time</a></li><li><a href="module-lens_variant.html">lens/variant</a></li><li><a href="module-lens_version.html">lens/version</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
