@@ -61,9 +61,16 @@ function getTime (uuid) {
  * @example <caption> Feb 2018, into self </caption>
  * setTime('01e821069d6316aa', '9d6316aa-2106-11e8-b467-0ed5f89f718b')
  *                       // => '9d6316aa-2106-11e8-b467-0ed5f89f718b'
+ * @example <caption> Too short </caption>
+ * setTime(           '12345', '00000000-0000-1000-b467-0ed5f89f718b')
+ *                       // => '00012345-0000-1000-b467-0ed5f89f718b'
+ * @example <caption> Too long </caption>
+ * setTime('abcd0123012301234567', '00000000-0000-1000-b467-0ed5f89f718b')
+ *                           // => '01234567-0123-1123-b467-0ed5f89f718b'
  * @static
  */
 function setTime (time, uuid) {
+  time = time.padStart(16, '0').slice(-16)
   return '' +
     time.substr(8, 8) + '-' +
     time.substr(4, 4) + '-' +

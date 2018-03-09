@@ -444,7 +444,7 @@ The first nyble will always be 0</div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="time.js.html">time.js</a>, <a href="time.js.html#line66">line 66</a>
+        <a href="time.js.html">time.js</a>, <a href="time.js.html#line72">line 72</a>
     </li></ul></dd>
     
 
@@ -529,6 +529,16 @@ The first nyble will always be 0</div>
     
     <pre class="prettyprint"><code>setTime('01e821069d6316aa', '9d6316aa-2106-11e8-b467-0ed5f89f718b')
                       // => '9d6316aa-2106-11e8-b467-0ed5f89f718b'</code></pre>
+
+        <p class="code-caption"> Too short </p>
+    
+    <pre class="prettyprint"><code>setTime(           '12345', '00000000-0000-1000-b467-0ed5f89f718b')
+                      // => '00012345-0000-1000-b467-0ed5f89f718b'</code></pre>
+
+        <p class="code-caption"> Too long </p>
+    
+    <pre class="prettyprint"><code>setTime('abcd0123012301234567', '00000000-0000-1000-b467-0ed5f89f718b')
+                          // => '01234567-0123-1123-b467-0ed5f89f718b'</code></pre>
 
 
 
