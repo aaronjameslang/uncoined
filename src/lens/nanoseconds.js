@@ -4,6 +4,10 @@
  */
 
 const bigInt = require('big-integer') // TODO remove this dependancy
+const { getTicks } = require('./ticks')
+
+const NANOSECONDS_PER_TICK = 100
+const TICKS_PER_SECOND = Math.pow(10, 7)
 
 /**
  * @param {string} uuid
@@ -29,9 +33,12 @@ const bigInt = require('big-integer') // TODO remove this dependancy
  * @static
  */
 function getNanoseconds (uuid) {
-  const hex = uuid.substr(14 + 1, 4 - 1) + uuid.substr(9, 4) + uuid.substr(0, 8)
-  const bint = bigInt(hex, 16)
-  const nanoseconds = bint.mod(Math.pow(10, 7)).times(100).toJSNumber()
+  const timeHexStr = getTicks(uuid)
+  const ticksBigInt = bigInt(timeHexStr, 16)
+  const nanoseconds = ticksBigInt
+    .mod(TICKS_PER_SECOND)
+    .times(NANOSECONDS_PER_TICK)
+    .toJSNumber()
   return nanoseconds
 }
 
