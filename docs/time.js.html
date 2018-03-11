@@ -105,7 +105,7 @@ function getNanoseconds (uuid) {
  * getSeconds('00000000-0001-1000-b467-0ed5f89f718b') // => 429
  * @example &lt;caption> 10^48 ticks &lt;/caption>
  * getSeconds('00000000-0000-1001-b467-0ed5f89f718b') // => 28147497
- * @example
+ * @example &lt;caption> Feb 2018 &lt;/caption>
  * getSeconds('9d6316aa-2106-11e8-b467-0ed5f89f718b') // => 13739610092
  * @example &lt;caption> Max ticks &lt;/caption>
  * getSeconds('ffffffff-ffff-1ffff-b467-0ed5f89f718b') // => 115292150460
@@ -169,58 +169,40 @@ function setNanoseconds (nanoseconds, uuid) {
   return setTime([getSeconds(uuid), nanoseconds], uuid)
 }
 
-// /**
-//  * @param {number} Unsigned integer &lt; 10^9
-//  * @param {string} uuid
-//  * @returns {string} uuid
-//  * @example
-//  * setSeconds(0, '00000000-0000-1000-b467-0ed5f89f718b')
-//  *             // => '00000000-0000-1000-b467-0ed5f89f718b'
-//  * @example
-//  * setSeconds(1, '00000000-0000-1000-b467-0ed5f89f718b')
-//  *             // => '00000000-0000-1000-b467-0ed5f89f718b'
-//  * @example
-//  * setSeconds(99, '00000000-0000-1000-b467-0ed5f89f718b')
-//  *              // => '00000000-0000-1000-b467-0ed5f89f718b'
-//  * @example
-//  * setSeconds(100, '00000000-0000-1000-b467-0ed5f89f718b')
-//  *               // => '00000001-0000-1000-b467-0ed5f89f718b'
-//  * @example
-//  * setSeconds(1000, '00000000-0000-1000-b467-0ed5f89f718b')
-//  *                // => '0000000a-0000-1000-b467-0ed5f89f718b'
-//  * @example
-//  * setSeconds(999999900, '00000000-0000-1000-b467-0ed5f89f718b')
-//  *                     // => '0098967f-0000-1000-b467-0ed5f89f718b'
-//  * @example
-//  * setSeconds(999999999, '00000000-0000-1000-b467-0ed5f89f718b')
-//  *                     // => '0098967f-0000-1000-b467-0ed5f89f718b'
-//  * @example
-//  * setSeconds(883729000, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
-//  *                     // => '9d6316aa-2106-11e8-b467-0ed5f89f718b'
-//  * @example
-//  * setSeconds(0, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
-//  *             // => '9cdc3e00-2106-11e8-b467-0ed5f89f718b'
-//  * @example
-//  * setSeconds(1300, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
-//  *                // => '9cdc3e0d-2106-11e8-b467-0ed5f89f718b'
-//  * @static
-//  */
-// function setSeconds (seconds, uuid) {
-//   const hex = uuid.substr(14 + 1, 4 - 1) + uuid.substr(9, 4) + uuid.substr(0, 8)
-//   const bint = bigInt(hex, 16).times(100)
-//   const bint_ = bint.divide(Math.pow(10, 9)).times(Math.pow(10, 9))
-//   const bint__ = bint_.plus(seconds)
-//   const hex_ = bint__.divide(100).toString(16).padStart(15, '0')
-//   const uuid_ = hex_.substr(7, 8) + '-' + hex_.substr(3, 4) + '-' + uuid.charAt(14) + hex_.substr(0, 3) + uuid.substr(18)
-//   return uuid_
-// }
+/**
+ * @param {number} Unsigned integer &lt; 10^9
+ * @param {string} uuid
+ * @returns {string} uuid
+ * @example
+ * setSeconds(0, '00000000-0000-1000-b467-0ed5f89f718b')
+ *             // => '00000000-0000-1000-b467-0ed5f89f718b'
+ * @example
+ * setSeconds(1, '00000000-0000-1000-b467-0ed5f89f718b')
+ *             // => '00989680-0000-1000-b467-0ed5f89f718b'
+ * @example
+ * setSeconds(2, '00000000-0000-1000-b467-0ed5f89f718b')
+ *              // => '01312d00-0000-1000-b467-0ed5f89f718b'
+ * @example
+ * setSeconds(10, '00000000-0000-1000-b467-0ed5f89f718b')
+ *               // => '05f5e100-0000-1000-b467-0ed5f89f718b'
+ * @example
+ * setSeconds(13739610092, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
+ *                   // => '9d6316aa-2106-11e8-b467-0ed5f89f718b'
+ * @example &lt;caption> Zero, into Feb 2018 &lt;/caption>
+ * setSeconds(0, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
+ *         // => '0086d8aa-0000-1000-b467-0ed5f89f718b'
+ * @static
+ */
+function setSeconds (seconds, uuid) {
+  return setTime([seconds, getNanoseconds(uuid)], uuid)
+}
 
 module.exports = {
   getNanoseconds,
   getSeconds,
   getTime,
   setNanoseconds,
-  // setSeconds,
+  setSeconds,
   setTime
 }
 </code></pre>

@@ -504,6 +504,8 @@
     
     <pre class="prettyprint"><code>getSeconds('00000000-0000-1001-b467-0ed5f89f718b') // => 28147497</code></pre>
 
+        <p class="code-caption"> Feb 2018 </p>
+    
     <pre class="prettyprint"><code>getSeconds('9d6316aa-2106-11e8-b467-0ed5f89f718b') // => 13739610092</code></pre>
 
         <p class="code-caption"> Max ticks </p>
@@ -718,6 +720,205 @@
 
     <pre class="prettyprint"><code>setNanoseconds(1300, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
                // => '9cdc3e0d-2106-11e8-b467-0ed5f89f718b'</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".setSeconds"><span class="type-signature">(static) </span>setSeconds<span class="signature">(Unsigned, uuid)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>Unsigned</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">integer < 10^9</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>uuid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="time.js.html">time.js</a>, <a href="time.js.html#line168">line 168</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    uuid
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>setSeconds(0, '00000000-0000-1000-b467-0ed5f89f718b')
+            // => '00000000-0000-1000-b467-0ed5f89f718b'</code></pre>
+
+    <pre class="prettyprint"><code>setSeconds(1, '00000000-0000-1000-b467-0ed5f89f718b')
+            // => '00989680-0000-1000-b467-0ed5f89f718b'</code></pre>
+
+    <pre class="prettyprint"><code>setSeconds(2, '00000000-0000-1000-b467-0ed5f89f718b')
+             // => '01312d00-0000-1000-b467-0ed5f89f718b'</code></pre>
+
+    <pre class="prettyprint"><code>setSeconds(10, '00000000-0000-1000-b467-0ed5f89f718b')
+              // => '05f5e100-0000-1000-b467-0ed5f89f718b'</code></pre>
+
+    <pre class="prettyprint"><code>setSeconds(13739610092, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
+                  // => '9d6316aa-2106-11e8-b467-0ed5f89f718b'</code></pre>
+
+        <p class="code-caption"> Zero, into Feb 2018 </p>
+    
+    <pre class="prettyprint"><code>setSeconds(0, '9d6316aa-2106-11e8-b467-0ed5f89f718b')
+        // => '0086d8aa-0000-1000-b467-0ed5f89f718b'</code></pre>
 
 
 
