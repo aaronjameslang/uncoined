@@ -1,4 +1,11 @@
 /**
+ * Duration in the format `[seconds, nanoseconds]`
+ *
+ * Duration is distinct from `time` in that it is relative to an unspecified
+ * point in time, whereas `time` is absolute.
+ *
+ * Similar to the value of [process.hrtime]{@link https://nodejs.org/api/process.html#process_process_hrtime_time}
+ *
  * [RFC 4122 § 4.1.4 Timestamp]{@link https://tools.ietf.org/html/rfc4122#section-4.1.4}
  * @module
  */
@@ -33,8 +40,8 @@ const TICKS_PER_SECOND = Math.pow(10, 7)
  * @static
  */
 function getNanoseconds (uuid) {
-  const timeHexStr = getTicks(uuid)
-  const ticksBigInt = bigInt(timeHexStr, 16)
+  const ticksHexStr = getTicks(uuid)
+  const ticksBigInt = bigInt(ticksHexStr, 16)
   const nanoseconds = ticksBigInt
     .mod(TICKS_PER_SECOND)
     .times(NANOSECONDS_PER_TICK)
@@ -90,13 +97,13 @@ function getSeconds (uuid) {
   return seconds
 }
 
-function getTime (uuid) {
+function getDuration (uuid) {
   return [getSeconds(uuid), getNanoseconds(uuid)]
 }
 
-function setTime (time, uuid) {
-  const ticksBigInt = bigInt(time[0]).times(TICKS_PER_SECOND)
-    .plus(Math.floor(time[1] / NANOSECONDS_PER_TICK))
+function setDuration (duration, uuid) {
+  const ticksBigInt = bigInt(duration[0]).times(TICKS_PER_SECOND)
+    .plus(Math.floor(duration[1] / NANOSECONDS_PER_TICK))
   const ticksHexStr = ticksBigInt.toString(16)
   return setTicks(ticksHexStr, uuid)
 }
@@ -138,7 +145,7 @@ function setTime (time, uuid) {
  * @static
  */
 function setNanoseconds (nanoseconds, uuid) {
-  return setTime([getSeconds(uuid), nanoseconds], uuid)
+  return setDuration([getSeconds(uuid), nanoseconds], uuid)
 }
 
 /**
@@ -166,14 +173,14 @@ function setNanoseconds (nanoseconds, uuid) {
  * @static
  */
 function setSeconds (seconds, uuid) {
-  return setTime([seconds, getNanoseconds(uuid)], uuid)
+  return setDuration([seconds, getNanoseconds(uuid)], uuid)
 }
 
 module.exports = {
+  getDuration,
   getNanoseconds,
   getSeconds,
-  getTime,
+  setDuration,
   setNanoseconds,
-  setSeconds,
-  setTime
+  setSeconds
 }
