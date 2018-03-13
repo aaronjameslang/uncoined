@@ -57,5 +57,7 @@ function setTime (time, uuid) {
 
 module.exports = {
   getTime,
-  setTime
+  setTime,
+  get: getTime,
+  set: setTime
 }
