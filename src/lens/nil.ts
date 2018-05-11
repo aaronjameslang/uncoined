@@ -12,7 +12,7 @@ const NIL_UUID = '00000000-0000-0000-0000-000000000000'
  * @example getNil('00000000-0000-0000-0000-000000000000') // => true
  * @static
  */
-function getNil (uuid) {
+export function getNil (uuid: string) {
   return uuid === NIL_UUID
 }
 
@@ -30,13 +30,8 @@ function getNil (uuid) {
  * getNil(setNil(false, '00000000-0000-0000-0000-000000000000')) // => false
  * @static
  */
-function setNil (isNil, uuid) {
+export function setNil (isNil: boolean, uuid: string) {
   if (isNil) return NIL_UUID
   if (!getNil(uuid)) return uuid
   return '00000000-0000-0000-e000-000000000000'
-}
-
-module.exports = {
-  getNil,
-  setNil
 }
