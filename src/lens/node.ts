@@ -9,7 +9,7 @@
  * @example getNode('9d6316aa-2106-11e8-b467-0ed5f89f718b') // => '0ed5f89f718b'
  * @static
  */
-function getNode (uuid) {
+export function getNode (uuid: Uuid) {
   return uuid.substr(24)
 }
 
@@ -22,11 +22,7 @@ function getNode (uuid) {
  *                    // => '9d6316aa-2106-11e8-b467-bc34595a6ef0'
  * @static
  */
-function setNode (node, uuid) {
+export function setNode (node: string, uuid: Uuid) {
   return uuid.substr(0, 24) + node
 }
 
-module.exports = {
-  getNode,
-  setNode
-}
