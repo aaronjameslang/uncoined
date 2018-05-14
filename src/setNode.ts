@@ -8,6 +8,7 @@
  *                    // => '9d6316aa-2106-11e8-b467-bc34595a6ef0'
  * @static
  */
-export function setNode (node: string, uuid: Uuid) {
+function setNode (node: string, uuid: Uuid) {
   return uuid.substr(0, 24) + node
 }
+export default setNode
