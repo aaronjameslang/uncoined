@@ -25,4 +25,3 @@ export function getNode (uuid: Uuid) {
 export function setNode (node: string, uuid: Uuid) {
   return uuid.substr(0, 24) + node
 }
-

@@ -5,7 +5,7 @@
  * @example getNode('9d6316aa-2106-11e8-b467-0ed5f89f718b') // => '0ed5f89f718b'
  * @static
  */
- function getNode (uuid: Uuid) {
+function getNode (uuid: Uuid) {
   return uuid.substr(24)
 }
 

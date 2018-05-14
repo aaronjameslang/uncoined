@@ -31,7 +31,7 @@ export function getNil (uuid: string): boolean {
  * @static
  */
 export function setNil (isNil: boolean, uuid: string): string {
-  if (isNil) return NIL_UUID;
-  if (!getNil(uuid)) return uuid
+  if (isNil) { return NIL_UUID }
+  if (!getNil(uuid)) { return uuid }
   return '00000000-0000-0000-e000-000000000000'
 }

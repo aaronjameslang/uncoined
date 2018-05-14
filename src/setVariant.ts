@@ -20,7 +20,7 @@
  *         // => '9d6316aa-2106-11e8-f467-0ed5f89f718b'
  * @static
  */
-export function setVariant(variant: Variant, uuid: Uuid) {
+export function setVariant (variant: Variant, uuid: Uuid) {
   const hexDigit = uuid.charAt(19)
   let nybble = parseInt(hexDigit, 16)
   switch (variant) {
@@ -29,9 +29,9 @@ export function setVariant(variant: Variant, uuid: Uuid) {
     case 2: nybble = nybble & 0b0001 | 0b1100; break
     case 3: nybble = nybble & 0b0001 | 0b1110; break
   }
-  const hexDigit_ = nybble.toString(16)
-  const uuid_ = uuid.substr(0, 19) + hexDigit_ + uuid.substr(20)
-  return uuid_
+  const hexDigit$ = nybble.toString(16)
+  const uuid$ = uuid.substr(0, 19) + hexDigit$ + uuid.substr(20)
+  return uuid$
 }
 
 export default setVariant

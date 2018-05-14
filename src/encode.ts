@@ -11,7 +11,7 @@
  * }) // => '9d6316aa-2106-11e8-b467-0ed5f89f718b'
  */
 export default function encode (_record: UuidRecord): Uuid {
-    return '9d6316aa-2106-11e8-b467-0ed5f89f718b'
+  return '9d6316aa-2106-11e8-b467-0ed5f89f718b'
   // let uuid = require('./lens/nil').setNil(true)
   // uuid = require('./lens/timeIso').setTimeIso(record.timeStr, uuid)
   // uuid = require('./lens/version').setVersion(record.version, uuid)

@@ -13,7 +13,7 @@
  */
 function setVersion (version: Version, uuid: Uuid): Uuid {
   const hexDigit = version.toString(16)
-  const uuid_ = uuid.substr(0, 14) + hexDigit + uuid.substr(15)
-  return uuid_
+  const uuid$ = uuid.substr(0, 14) + hexDigit + uuid.substr(15)
+  return uuid$
 }
 export default setVersion

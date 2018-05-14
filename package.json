@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "jsdoc": "rm -rf docs && jsdoc dist --recurse --destination docs --configure jsdoc.json",
-    "posttest": "standard && npm run jsdoc",
+    "lint": "tslint --fix --project .",
+    "posttest": "npm run lint && npm run jsdoc",
     "pretest": "tsc",
     "test": "mocha --require jsdoctest dist"
   },
@@ -23,5 +24,9 @@
     "ignore": [
       "docs"
     ]
+  },
+  "dependencies": {
+    "tslint": "^5.10.0",
+    "tslint-config-standard": "^7.0.0"
   }
 }
