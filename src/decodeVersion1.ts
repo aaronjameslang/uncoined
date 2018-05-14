@@ -1,4 +1,5 @@
 import getNode from './getNode'
+import getClockSequence from './getClockSequence'
 /**
  * @param {Uuid} uuid
  * @return {UuidVersion1}
@@ -8,7 +9,7 @@ import getNode from './getNode'
  */
 function decodeVersion1 (uuid: Uuid): UuidVersion1 {
   return {
-    clockSequence: 13415,
+    clockSequence: getClockSequence(uuid),
     datetime: '2018-03-06T06:21:32.883729000Z',
     node: getNode(uuid),
     variant: 1,
