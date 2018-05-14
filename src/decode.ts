@@ -1,5 +1,6 @@
-import { get as getVersion } from './lens/version'
-import { get as getVariant } from './lens/variant'
+import getVariant from './getVariant'
+import getVersion from './getVersion'
+import decodeVersion1 from './decodeVersion1'
 
 /**
  * @param {string} uuid
@@ -45,13 +46,6 @@ export const decodeVariant3 = (uuid: Uuid): UuidVariant3 => ({
     variant: 3,
 })
 
-export const decodeVersion1 = (_uuid: Uuid): UuidVersion1 => ({
-    clockSequence: 13415,
-    datetime: '2018-03-06T06:21:32.883729000Z',
-    node: '0ed5f89f718b',
-    variant: 1,
-    version: 1,
-})
 export const decodeVersion2 = (_uuid: Uuid): UuidVersion2 => ({
     version: 2
 })
