@@ -7,7 +7,7 @@
     "jsdoc": "rm -rf docs && jsdoc dist --recurse --destination docs --configure jsdoc.json",
     "lint": "tslint --fix --project .",
     "posttest": "npm run lint && npm run jsdoc",
-    "pretest": "tsc",
+    "pretest": "rm -rf dist && tsc",
     "test": "mocha --require jsdoctest dist"
   },
   "author": "",

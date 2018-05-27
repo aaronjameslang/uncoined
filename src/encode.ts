@@ -15,8 +15,8 @@ export default function encode (_record: UuidRecord): Uuid {
   // let uuid = require('./lens/nil').setNil(true)
   // uuid = require('./lens/timeIso').setTimeIso(record.timeStr, uuid)
   // uuid = require('./lens/version').setVersion(record.version, uuid)
-  // uuid = require('./lens/variant').setVariant(record.variant, uuid)
-  // uuid = require('./lens/clockSequence').setClockSequence(record.clockSequence, uuid)
+  // uuid = require('./lens/variant').setVariantUnsafe(record.variant, uuid)
+  // uuid = require('./lens/clockSequence').setClockSequenceUnsafe(record.clockSequence, uuid)
   // uuid = require('./lens/node').setNode(record.node, uuid)
   // return uuid
 }
