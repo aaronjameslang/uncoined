@@ -3,6 +3,7 @@ type Uuid = string
 type ClockSequence = number
 type DateTime = string
 type Nod = string
+type Ticks = string
 type Variant = 0 | 1 | 2 | 3
 type Version
   = 0x0 | 0x1 | 0x2 | 0x3
